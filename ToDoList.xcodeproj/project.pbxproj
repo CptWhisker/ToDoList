@@ -9,8 +9,7 @@
 /* Begin PBXBuildFile section */
 		CE11F9202C96B91A00B2A04D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F91F2C96B91A00B2A04D /* AppDelegate.swift */; };
 		CE11F9222C96B91A00B2A04D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9212C96B91A00B2A04D /* SceneDelegate.swift */; };
-		CE11F9242C96B91A00B2A04D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9232C96B91A00B2A04D /* ViewController.swift */; };
-		CE11F9272C96B91A00B2A04D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE11F9252C96B91A00B2A04D /* Main.storyboard */; };
+		CE11F9242C96B91A00B2A04D /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9232C96B91A00B2A04D /* TaskListViewController.swift */; };
 		CE11F92A2C96B91A00B2A04D /* ToDoList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9282C96B91A00B2A04D /* ToDoList.xcdatamodeld */; };
 		CE11F92C2C96B92200B2A04D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE11F92B2C96B92200B2A04D /* Assets.xcassets */; };
 		CE11F92F2C96B92200B2A04D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE11F92D2C96B92200B2A04D /* LaunchScreen.storyboard */; };
@@ -40,8 +39,7 @@
 		CE11F91C2C96B91A00B2A04D /* ToDoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE11F91F2C96B91A00B2A04D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE11F9212C96B91A00B2A04D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CE11F9232C96B91A00B2A04D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CE11F9262C96B91A00B2A04D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CE11F9232C96B91A00B2A04D /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		CE11F9292C96B91A00B2A04D /* ToDoList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDoList.xcdatamodel; sourceTree = "<group>"; };
 		CE11F92B2C96B92200B2A04D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE11F92E2C96B92200B2A04D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -103,8 +101,7 @@
 			children = (
 				CE11F91F2C96B91A00B2A04D /* AppDelegate.swift */,
 				CE11F9212C96B91A00B2A04D /* SceneDelegate.swift */,
-				CE11F9232C96B91A00B2A04D /* ViewController.swift */,
-				CE11F9252C96B91A00B2A04D /* Main.storyboard */,
+				CE11F9232C96B91A00B2A04D /* TaskListViewController.swift */,
 				CE11F92B2C96B92200B2A04D /* Assets.xcassets */,
 				CE11F92D2C96B92200B2A04D /* LaunchScreen.storyboard */,
 				CE11F9302C96B92200B2A04D /* Info.plist */,
@@ -236,7 +233,6 @@
 			files = (
 				CE11F92F2C96B92200B2A04D /* LaunchScreen.storyboard in Resources */,
 				CE11F92C2C96B92200B2A04D /* Assets.xcassets in Resources */,
-				CE11F9272C96B91A00B2A04D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE11F9242C96B91A00B2A04D /* ViewController.swift in Sources */,
+				CE11F9242C96B91A00B2A04D /* TaskListViewController.swift in Sources */,
 				CE11F9202C96B91A00B2A04D /* AppDelegate.swift in Sources */,
 				CE11F9222C96B91A00B2A04D /* SceneDelegate.swift in Sources */,
 				CE11F92A2C96B91A00B2A04D /* ToDoList.xcdatamodeld in Sources */,
@@ -301,14 +297,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CE11F9252C96B91A00B2A04D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE11F9262C96B91A00B2A04D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CE11F92D2C96B92200B2A04D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -451,7 +439,6 @@
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -479,7 +466,6 @@
 				INFOPLIST_FILE = ToDoList/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
