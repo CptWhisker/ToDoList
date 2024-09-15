@@ -9,12 +9,12 @@ import UIKit
 
 protocol TaskListRouterProtocol: AnyObject {
     var viewController: TaskListViewControllerProtocol? { get set }
-    func navigateToTaskDetail(with task: TaskViewModel?, from viewController: UIViewController)
+    func navigateToTaskDetail(with task: TaskModel?)
 }
 
 final class TaskListRouter: TaskListRouterProtocol {
 
     weak var viewController: TaskListViewControllerProtocol?
     
-    func navigateToTaskDetail(with task: TaskViewModel?, from viewController: UIViewController) {}
+    func navigateToTaskDetail(with task: TaskModel?) {}
 }

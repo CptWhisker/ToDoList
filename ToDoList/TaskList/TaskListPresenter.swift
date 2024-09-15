@@ -15,28 +15,45 @@ protocol TaskListPresenterProtocol: AnyObject {
     func filterAllTasks()
     func filterCompletedTasks()
     func filterIncompletedTasks()
-    func didFetchTasks(_ tasks: [TaskCoreData])
+    func didFetchTasks(_ tasks: [TaskCoreData], counts: FilteredTasksCount)
     func didTapAddTaskButton()
-    func didSelectTask(_ task: TaskViewModel)
+    func didSelectTask(_ task: TaskModel)
 }
 
 final class TaskListPresenter: TaskListPresenterProtocol {
 
+    // MARK: - Properties
     weak var viewController: TaskListViewControllerProtocol?
     var interactor: TaskListInteractorProtocol?
     var router: TaskListRouterProtocol?
     
-    func viewDidLoad() {}
+    // MARK: - Public Methods
+    func viewDidLoad() {
+        interactor?.fetchTasks()
+    }
     
-    func filterAllTasks() {}
+    func filterAllTasks() {
+        interactor?.fetchTasks(with: .all)
+    }
     
-    func filterCompletedTasks() {}
+    func filterCompletedTasks() {
+        interactor?.fetchTasks(with: .completed)
+    }
     
-    func filterIncompletedTasks() {}
+    func filterIncompletedTasks() {
+        interactor?.fetchTasks(with: .incompleted)
+    }
     
-    func didFetchTasks(_ tasks: [TaskCoreData]) {}
+    func didFetchTasks(_ tasks: [TaskCoreData], counts: FilteredTasksCount) {
+        let tasks = tasks.map { TaskModel(from: $0) }
+        viewController?.showTasks(tasks)
+    }
     
-    func didTapAddTaskButton() {}
+    func didTapAddTaskButton() {
+        router?.navigateToTaskDetail(with: nil)
+    }
     
-    func didSelectTask(_ task: TaskViewModel) {}
+    func didSelectTask(_ task: TaskModel) {
+        router?.navigateToTaskDetail(with: task)
+    }
 }

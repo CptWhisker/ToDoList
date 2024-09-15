@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TaskViewModel {
+struct TaskModel {
     let id: UUID
     let title: String
     let description: String
@@ -15,13 +15,13 @@ struct TaskViewModel {
     let isCompleted: Bool
 }
 
-extension TaskViewModel {
+extension TaskModel {
     
     init(from entity: TaskCoreData) {
         self.id = entity.taskID ?? UUID()
         self.title = entity.taskTitle ?? "default"
         self.description = entity.taskDescription ?? ""
-        self.createdAt = TaskViewModel.dateFormatter.string(from: entity.creationDate ?? Date())
+        self.createdAt = TaskModel.dateFormatter.string(from: entity.creationDate ?? Date())
         self.isCompleted = entity.taskStatus
     }
     
