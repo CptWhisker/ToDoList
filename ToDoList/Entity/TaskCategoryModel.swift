@@ -12,5 +12,5 @@ struct TaskResponse: Decodable {
 }
 
 struct TaskCategoryModel: Decodable {
-    let title: String
+    let todo: String
 }

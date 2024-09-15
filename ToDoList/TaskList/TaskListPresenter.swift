@@ -16,6 +16,7 @@ protocol TaskListPresenterProtocol: AnyObject {
     func filterCompletedTasks()
     func filterIncompletedTasks()
     func didFetchTasks(_ tasks: [TaskCoreData], counts: FilteredTasksCount)
+    func didUpdateTask(_ task: TaskModel)
     func didTapAddTaskButton()
     func didSelectTask(_ task: TaskModel)
 }
@@ -46,7 +47,17 @@ final class TaskListPresenter: TaskListPresenterProtocol {
     
     func didFetchTasks(_ tasks: [TaskCoreData], counts: FilteredTasksCount) {
         let tasks = tasks.map { TaskModel(from: $0) }
-        viewController?.showTasks(tasks)
+        
+        DispatchQueue.main.async { [weak viewController] in
+            viewController?.setFilterCounts(counts)
+            viewController?.showTasks(tasks)
+        }
+    }
+    
+    func didUpdateTask(_ task: TaskModel) {
+        DispatchQueue.main.async { [weak viewController] in
+            viewController?.updateTask(task)
+        }
     }
     
     func didTapAddTaskButton() {
@@ -55,5 +66,11 @@ final class TaskListPresenter: TaskListPresenterProtocol {
     
     func didSelectTask(_ task: TaskModel) {
         router?.navigateToTaskDetail(with: task)
+    }
+}
+
+extension TaskListPresenter: TaskCellDelegate {
+    func didTapCompleteButton(for task: TaskModel) {
+        interactor?.updateTask(task)
     }
 }

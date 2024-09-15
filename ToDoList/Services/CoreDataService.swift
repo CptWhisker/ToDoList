@@ -15,6 +15,7 @@ protocol CoreDataServiceProtocol: AnyObject {
     func readTasks() -> [TaskCoreData]
     func readCompletedTasks() -> [TaskCoreData]
     func readIncompletedTasks() -> [TaskCoreData]
+    func updateTask(_ task: TaskModel)
     func deleteTask(_ task: TaskModel)
 }
 
@@ -39,7 +40,7 @@ final class CoreDataService: CoreDataServiceProtocol {
         for category in categories {
             let newCategory = TaskCategoryCoreData(context: context)
             newCategory.taskCategoryID = UUID()
-            newCategory.taskCategoryTitle = category.title
+            newCategory.taskCategoryTitle = category.todo
         }
         
         do {
@@ -91,7 +92,7 @@ final class CoreDataService: CoreDataServiceProtocol {
         let fetchRequest = TaskCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "%K == %@",
-            #keyPath(TaskCoreData.taskStatus), true
+            #keyPath(TaskCoreData.taskStatus), NSNumber(value: true)
         )
         
         do {
@@ -106,7 +107,7 @@ final class CoreDataService: CoreDataServiceProtocol {
         let fetchRequest = TaskCoreData.fetchRequest()
         fetchRequest.predicate = NSPredicate(
             format: "%K == %@",
-            #keyPath(TaskCoreData.taskStatus), false
+            #keyPath(TaskCoreData.taskStatus), NSNumber(value: false)
         )
         
         do {
@@ -117,6 +118,28 @@ final class CoreDataService: CoreDataServiceProtocol {
         }
     }
     
+    //MARK: - UPDATE
+    func updateTask(_ task: TaskModel) {
+        let fetchRequest = TaskCoreData.fetchRequest()
+        fetchRequest.predicate = NSPredicate(
+            format: "%K == %@",
+            #keyPath(TaskCoreData.taskID), task.id as CVarArg
+        )
+        
+        do {
+            let tasks = try context.fetch(fetchRequest)
+            if let taskToUpdate = tasks.first {
+                taskToUpdate.taskTitle = task.title
+                taskToUpdate.taskDescription = task.description
+                taskToUpdate.taskStatus = task.isCompleted
+                
+                try context.save()
+            }
+        } catch {
+            print("Failed to update task:", error)
+        }
+    }
+    
     // MARK: - DELETE
     func deleteTask(_ task: TaskModel) {
         let fetchRequest = TaskCoreData.fetchRequest()
@@ -124,5 +147,15 @@ final class CoreDataService: CoreDataServiceProtocol {
             format: "%K == %@",
             #keyPath(TaskCoreData.taskID), task.id as CVarArg
         )
+        
+        do {
+            let tasks = try context.fetch(fetchRequest)
+            if let taskToDelete = tasks.first {
+                context.delete(taskToDelete)
+                try context.save()
+            }
+        } catch {
+            print("Failed to delete task:", error)
+        }
     }
 }

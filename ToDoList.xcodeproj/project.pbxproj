@@ -26,6 +26,7 @@
 		CE11F9652C96F0EE00B2A04D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9642C96F0EE00B2A04D /* CoreDataStack.swift */; };
 		CE11F9672C96F15500B2A04D /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9662C96F15500B2A04D /* CoreDataService.swift */; };
 		CE11F96C2C97071100B2A04D /* FilteredTasksCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F96B2C97071100B2A04D /* FilteredTasksCount.swift */; };
+		CE11F96E2C970C8000B2A04D /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F96D2C970C8000B2A04D /* TaskCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		CE11F9642C96F0EE00B2A04D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		CE11F9662C96F15500B2A04D /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		CE11F96B2C97071100B2A04D /* FilteredTasksCount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilteredTasksCount.swift; sourceTree = "<group>"; };
+		CE11F96D2C970C8000B2A04D /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +154,7 @@
 		CE11F9532C96C53700B2A04D /* TaskList */ = {
 			isa = PBXGroup;
 			children = (
-				CE11F9232C96B91A00B2A04D /* TaskListViewController.swift */,
+				CE11F96F2C973F6000B2A04D /* View */,
 				CE11F9542C96C5DD00B2A04D /* TaskListInteractor.swift */,
 				CE11F9562C96C60600B2A04D /* TaskListPresenter.swift */,
 				CE11F9582C96C62600B2A04D /* TaskListRouter.swift */,
@@ -187,6 +189,15 @@
 				CE11F9642C96F0EE00B2A04D /* CoreDataStack.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		CE11F96F2C973F6000B2A04D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE11F9232C96B91A00B2A04D /* TaskListViewController.swift */,
+				CE11F96D2C970C8000B2A04D /* TaskCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -323,6 +334,7 @@
 				CE11F9672C96F15500B2A04D /* CoreDataService.swift in Sources */,
 				CE11F9242C96B91A00B2A04D /* TaskListViewController.swift in Sources */,
 				CE11F9202C96B91A00B2A04D /* AppDelegate.swift in Sources */,
+				CE11F96E2C970C8000B2A04D /* TaskCell.swift in Sources */,
 				CE11F9652C96F0EE00B2A04D /* CoreDataStack.swift in Sources */,
 				CE11F9222C96B91A00B2A04D /* SceneDelegate.swift in Sources */,
 				CE11F92A2C96B91A00B2A04D /* ToDoList.xcdatamodeld in Sources */,

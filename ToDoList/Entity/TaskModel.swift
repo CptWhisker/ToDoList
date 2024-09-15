@@ -9,10 +9,10 @@ import Foundation
 
 struct TaskModel {
     let id: UUID
-    let title: String
-    let description: String
+    var title: String
+    var description: String
     let createdAt: String
-    let isCompleted: Bool
+    var isCompleted: Bool
 }
 
 extension TaskModel {

@@ -15,6 +15,7 @@ protocol TaskListInteractorProtocol: AnyObject {
     var presenter: TaskListPresenterProtocol? { get set }
     func fetchTasks()
     func fetchTasks(with filter: TaskFilter)
+    func updateTask(_ task: TaskModel)
 }
 
 final class TaskListInteractor: TaskListInteractorProtocol {
@@ -79,5 +80,10 @@ final class TaskListInteractor: TaskListInteractorProtocol {
         let incompleted = coreDataService.readIncompletedTasks().count
         
         return FilteredTasksCount(all: all, completed: completed, incompleted: incompleted)
+    }
+    
+    func updateTask(_ task: TaskModel) {
+        coreDataService.updateTask(task)
+        presenter?.didUpdateTask(task)
     }
 }
