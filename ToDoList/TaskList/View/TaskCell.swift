@@ -47,7 +47,7 @@ final class TaskCell: UICollectionViewCell {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(systemName: "circle"), for: .normal)
-        button.tintColor = .blue
+        button.tintColor = .systemBlue
         button.addTarget(self, action: #selector(completeTapped), for: .touchUpInside)
         return button
     }()

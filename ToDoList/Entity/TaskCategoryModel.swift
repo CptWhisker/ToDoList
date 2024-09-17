@@ -8,9 +8,21 @@
 import Foundation
 
 struct TaskResponse: Decodable {
+    
     let todos: [TaskCategoryModel]
+    
 }
 
 struct TaskCategoryModel: Decodable {
+    
     let todo: String
+    
+}
+
+extension TaskCategoryModel {
+    
+    init(from entity: TaskCategoryCoreData) {
+        self.todo = entity.taskCategoryTitle ?? "default"
+    }
+    
 }

@@ -61,16 +61,22 @@ final class TaskListPresenter: TaskListPresenterProtocol {
     }
     
     func didTapAddTaskButton() {
-        router?.navigateToTaskDetail(with: nil)
+        router?.navigateToTaskDetail(with: nil, delegate: self)
     }
     
     func didSelectTask(_ task: TaskModel) {
-        router?.navigateToTaskDetail(with: task)
+        router?.navigateToTaskDetail(with: task, delegate: self)
     }
 }
 
 extension TaskListPresenter: TaskCellDelegate {
     func didTapCompleteButton(for task: TaskModel) {
         interactor?.updateTask(task)
+    }
+}
+
+extension TaskListPresenter: TaskDetailDelegate {
+    func didCreateTask() {
+        interactor?.fetchTasks(with: .all)
     }
 }

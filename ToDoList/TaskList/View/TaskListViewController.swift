@@ -62,8 +62,8 @@ class TaskListViewController: UIViewController, TaskListViewControllerProtocol {
         config.image = UIImage(systemName: "plus")
         config.imagePadding = 8
         config.imagePlacement = .leading
-        config.baseBackgroundColor = .blue.withAlphaComponent(0.1)
-        config.baseForegroundColor = .blue
+        config.baseBackgroundColor = .systemBlue.withAlphaComponent(0.1)
+        config.baseForegroundColor = .systemBlue
         config.cornerStyle = .medium
         
         let button = UIButton(configuration: config)
@@ -75,7 +75,7 @@ class TaskListViewController: UIViewController, TaskListViewControllerProtocol {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("All   9", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.titleLabel?.textAlignment = .left
         button.widthAnchor.constraint(equalToConstant: view.bounds.width / 6).isActive = true
@@ -164,7 +164,8 @@ class TaskListViewController: UIViewController, TaskListViewControllerProtocol {
     }
 
     private func configureUI() {
-        view.backgroundColor = .white.withAlphaComponent(0.95)
+//        view.backgroundColor = .white.withAlphaComponent(0.95)
+        view.backgroundColor = .todoBackground
         
         view.addSubview(labelsStackView)
         view.addSubview(newTaskButton)
