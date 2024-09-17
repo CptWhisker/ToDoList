@@ -18,7 +18,8 @@ final class TaskListRouter: TaskListRouterProtocol {
         
     func navigateToTaskDetail(with task: TaskModel?, delegate: TaskDetailDelegate) {
         let taskDetailVC = TaskDetailViewController()
-        
+        taskDetailVC.configurator.configure(with: taskDetailVC)
+                
         taskDetailVC.presenter?.task = task
         taskDetailVC.presenter?.delegate = delegate
         

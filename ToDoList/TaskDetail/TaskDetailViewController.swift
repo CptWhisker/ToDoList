@@ -10,7 +10,6 @@ import UIKit
 protocol TaskDetailViewControllerProtocol: AnyObject {
     var presenter: TaskDetailPresenterProtocol? { get set }
     func showCategories(_ categories: [String])
-    func setSelectedCategory(_ category: String)
     func setSelectedDescription(_ description: String)
 }
 
@@ -19,17 +18,7 @@ final class TaskDetailViewController: UIViewController {
     // MARK: - Properties
     var presenter: TaskDetailPresenterProtocol?
     let configurator: TaskDetailConfiguratorProtocol
-    private var categories: [String] = [
-    "Make homework", "Water plants", "Buy groceries",
-    "Purchase new TV", "Play some VideoGames", "Code a little",
-    "Pet a cat", "Hide the body", "Picle some veggies",
-    "Make homework", "Water plants", "Buy groceries",
-    "Purchase new TV", "Play some VideoGames", "Code a little",
-    "Pet a cat", "Hide the body", "Picle some veggies",
-    "Make homework", "Water plants", "Buy groceries",
-    "Purchase new TV", "Play some VideoGames", "Code a little",
-    "Pet a cat", "Hide the body", "Picle some veggies"
-    ]
+    private var categories: [String] = []
     
     // MARK: - Initializers
     init(configurator: TaskDetailConfiguratorProtocol) {
@@ -90,8 +79,7 @@ final class TaskDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configurator.configure(with: self)
-//        presenter?.viewDidLoad()
+        presenter?.viewDidLoad()
         
         configureUI()
     }
@@ -161,6 +149,10 @@ extension TaskDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.setLeftAndRightSeparatorInsets(to: 16)
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter?.didSelectCategory(categories[indexPath.row])
+    }
 }
 
 // MARK: - TaskDetailViewControllerProtocol
@@ -172,9 +164,8 @@ extension TaskDetailViewController: TaskDetailViewControllerProtocol {
         categoriesTableView.reloadData()
     }
     
-    func setSelectedCategory(_ category: String) {}
-    
     func setSelectedDescription(_ description: String) {
+        print("Setting")
         descriptionTextField.text = description
     }
 }

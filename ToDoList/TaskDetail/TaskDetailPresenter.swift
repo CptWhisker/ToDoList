@@ -8,7 +8,7 @@
 import Foundation
 
 protocol TaskDetailDelegate: AnyObject {
-    func didCreateTask()
+    func didCreateOrUpdateTask()
 }
 
 protocol TaskDetailPresenterProtocol: AnyObject {
@@ -19,7 +19,7 @@ protocol TaskDetailPresenterProtocol: AnyObject {
     var task: TaskModel? { get set }
     func viewDidLoad()
     func didFetchTaskCategories(_ categories: [TaskCategoryCoreData])
-    func didCreateTask()
+    func didCreateOrUpdateTask()
     func didSelectCategory(_ category: String)
     func didTapDoneButton(description: String)
     func didTapBackButton()
@@ -33,36 +33,30 @@ final class TaskDetailPresenter: TaskDetailPresenterProtocol {
     var interactor: TaskDetailInteractorProtocol?
     var router: TaskDetailRouterProtocol?
     var task: TaskModel?
-    var selectedCategory: String? {
-        didSet {
-            if let selectedCategory {
-                viewController?.setSelectedCategory(selectedCategory)
-            }
-        }
-    }
+    var selectedCategory: String?
     
     // MARK: - Public Methods
     func viewDidLoad() {
         interactor?.fetchCategories()
         
         if let task {
-            viewController?.setSelectedCategory(task.title)
+            selectedCategory = task.title
             viewController?.setSelectedDescription(task.description)
         }
     }
     
     func didFetchTaskCategories(_ categories: [TaskCategoryCoreData]) {
         var stringCategories: [String] = []
-        
+                
         categories.forEach { stringCategories.append(TaskCategoryModel(from: $0).todo)}
-        
+                
         DispatchQueue.main.async { [weak viewController] in
             viewController?.showCategories(stringCategories)
         }
     }
     
-    func didCreateTask() {
-        delegate?.didCreateTask()
+    func didCreateOrUpdateTask() {
+        delegate?.didCreateOrUpdateTask()
         router?.navigateToTaskList()
     }
     
@@ -72,7 +66,25 @@ final class TaskDetailPresenter: TaskDetailPresenterProtocol {
     
     func didTapDoneButton(description: String) {
         if let selectedCategory {
-            interactor?.createTask(with: selectedCategory, description: description)
+            if task != nil {
+                let updatedTask = TaskModel(
+                    id: task?.id ?? UUID(),
+                    title: selectedCategory,
+                    description: description,
+                    createdAt: task?.createdAt ?? "",
+                    isCompleted: task?.isCompleted ?? false
+                )
+                interactor?.updateTask(with: updatedTask)
+            } else {
+                let newTask = TaskModel(
+                    id: UUID(),
+                    title: selectedCategory,
+                    description: description,
+                    createdAt: "",
+                    isCompleted: false
+                )
+                interactor?.createTask(newTask)
+            }
         }
     }
     

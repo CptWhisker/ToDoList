@@ -69,14 +69,16 @@ final class TaskListPresenter: TaskListPresenterProtocol {
     }
 }
 
+// MARK: - TaskCellDelegate
 extension TaskListPresenter: TaskCellDelegate {
     func didTapCompleteButton(for task: TaskModel) {
         interactor?.updateTask(task)
     }
 }
 
+// MARK: - TaskDetailDelegate
 extension TaskListPresenter: TaskDetailDelegate {
-    func didCreateTask() {
+    func didCreateOrUpdateTask() {
         interactor?.fetchTasks(with: .all)
     }
 }

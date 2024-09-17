@@ -10,7 +10,8 @@ import Foundation
 protocol TaskDetailInteractorProtocol: AnyObject {
     var presenter: TaskDetailPresenterProtocol? { get set }
     func fetchCategories()
-    func createTask(with category: String, description: String)
+    func createTask(_ newTask: TaskModel)
+    func updateTask(with updatedTask: TaskModel)
 }
 
 final class TaskDetailInteractor: TaskDetailInteractorProtocol {
@@ -32,20 +33,18 @@ final class TaskDetailInteractor: TaskDetailInteractorProtocol {
     
     // MARK: - Public Methods
     func fetchCategories() {
-        
+        if let categories = coreDataService.readCategories() {
+            presenter?.didFetchTaskCategories(categories)
+        }
     }
     
-    func createTask(with category: String, description: String) {
-        let task = TaskModel(
-            id: UUID(),
-            title: category,
-            description: description,
-            createdAt: nil,
-            isCompleted: false
-        )
-        
-        coreDataService.createTask(task)
-        
-        presenter?.didCreateTask()
+    func createTask(_ newTask: TaskModel) {
+        coreDataService.createTask(newTask)
+        presenter?.didCreateOrUpdateTask()
+    }
+    
+    func updateTask(with updatedTask: TaskModel) {
+        coreDataService.updateTask(updatedTask)
+        presenter?.didCreateOrUpdateTask()
     }
 }

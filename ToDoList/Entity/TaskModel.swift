@@ -11,7 +11,7 @@ struct TaskModel {
     let id: UUID
     var title: String
     var description: String
-    let createdAt: String?
+    let createdAt: String
     var isCompleted: Bool
 }
 

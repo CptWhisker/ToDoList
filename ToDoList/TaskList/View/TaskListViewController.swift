@@ -19,17 +19,18 @@ class TaskListViewController: UIViewController, TaskListViewControllerProtocol {
     // MARK: - Properties
     var presenter: TaskListPresenterProtocol?
     let configurator: TaskListConfiguratorProtocol = TaskListConfigurator()
-    private var tasks: [TaskModel] = [
-    TaskModel(id: UUID(), title: "One", description: "Description", createdAt: "Sep 12, 19:44", isCompleted: true),
-    TaskModel(id: UUID(), title: "Two", description: "Description", createdAt: "Sep 14, 20:00", isCompleted: false),
-    TaskModel(id: UUID(), title: "Three", description: "Description", createdAt: "Sep 15 21:30", isCompleted: true),
-    TaskModel(id: UUID(), title: "One", description: "Description", createdAt: "Sep 12, 19:44", isCompleted: true),
-    TaskModel(id: UUID(), title: "Two", description: "Description", createdAt: "Sep 14, 20:00", isCompleted: false),
-    TaskModel(id: UUID(), title: "Three", description: "Description", createdAt: "Sep 15 21:30", isCompleted: true),
-    TaskModel(id: UUID(), title: "One", description: "Description", createdAt: "Sep 12, 19:44", isCompleted: true),
-    TaskModel(id: UUID(), title: "Two", description: "Description", createdAt: "Sep 14, 20:00", isCompleted: false),
-    TaskModel(id: UUID(), title: "Three", description: "Description", createdAt: "Sep 15 21:30", isCompleted: true)
-    ]
+//    private var tasks: [TaskModel] = [
+//    TaskModel(id: UUID(), title: "One", description: "Description", createdAt: "Sep 12, 19:44", isCompleted: true),
+//    TaskModel(id: UUID(), title: "Two", description: "Description", createdAt: "Sep 14, 20:00", isCompleted: false),
+//    TaskModel(id: UUID(), title: "Three", description: "Description", createdAt: "Sep 15 21:30", isCompleted: true),
+//    TaskModel(id: UUID(), title: "One", description: "Description", createdAt: "Sep 12, 19:44", isCompleted: true),
+//    TaskModel(id: UUID(), title: "Two", description: "Description", createdAt: "Sep 14, 20:00", isCompleted: false),
+//    TaskModel(id: UUID(), title: "Three", description: "Description", createdAt: "Sep 15 21:30", isCompleted: true),
+//    TaskModel(id: UUID(), title: "One", description: "Description", createdAt: "Sep 12, 19:44", isCompleted: true),
+//    TaskModel(id: UUID(), title: "Two", description: "Description", createdAt: "Sep 14, 20:00", isCompleted: false),
+//    TaskModel(id: UUID(), title: "Three", description: "Description", createdAt: "Sep 15 21:30", isCompleted: true)
+//    ]
+    private var tasks: [TaskModel] = []
     
     // MARK: - UI Elements
     
@@ -136,7 +137,7 @@ class TaskListViewController: UIViewController, TaskListViewControllerProtocol {
         super.viewDidLoad()
         
         configurator.configure(with: self)
-//        presenter?.viewDidLoad()
+        presenter?.viewDidLoad()
         
         configureUI()
     }
@@ -240,7 +241,7 @@ extension TaskListViewController: UICollectionViewDelegateFlowLayout {
 extension TaskListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedTask = tasks[indexPath.item]
-        
+                
         presenter?.didSelectTask(selectedTask)
     }
 }

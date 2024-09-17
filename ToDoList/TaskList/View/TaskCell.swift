@@ -21,8 +21,8 @@ final class TaskCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 20, weight: .bold)
-        label.numberOfLines = 1
+        label.font = .systemFont(ofSize: 16, weight: .bold)
+        label.numberOfLines = 2
         return label
     }()
     
