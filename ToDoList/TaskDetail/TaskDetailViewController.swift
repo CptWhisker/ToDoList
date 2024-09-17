@@ -74,6 +74,24 @@ final class TaskDetailViewController: UIViewController {
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         return button
     }()
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.layer.cornerRadius = 8
+        button.setTitle("Delete", for: .normal)
+        button.setTitleColor(.systemRed, for: .normal)
+        button.backgroundColor = .systemRed.withAlphaComponent(0.1)
+        button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        return button
+    }()
+    private lazy var buttonStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [deleteButton, doneButton])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.spacing = 16
+        return stackView
+    }()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -92,7 +110,9 @@ final class TaskDetailViewController: UIViewController {
 
         view.addSubview(categoriesTableView)
         view.addSubview(descriptionTextField)
-        view.addSubview(doneButton)
+//        view.addSubview(doneButton)
+//        view.addSubview(deleteButton)
+        view.addSubview(buttonStackView)
         
         NSLayoutConstraint.activate([
             categoriesTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -105,10 +125,15 @@ final class TaskDetailViewController: UIViewController {
             descriptionTextField.trailingAnchor.constraint(equalTo: categoriesTableView.trailingAnchor),
             descriptionTextField.heightAnchor.constraint(equalTo: doneButton.heightAnchor),
             
-            doneButton.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 16),
-            doneButton.centerXAnchor.constraint(equalTo: descriptionTextField.centerXAnchor),
-            doneButton.widthAnchor.constraint(equalToConstant: view.frame.width / 2),
-            doneButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+//            doneButton.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 16),
+//            doneButton.centerXAnchor.constraint(equalTo: descriptionTextField.centerXAnchor),
+//            doneButton.widthAnchor.constraint(equalToConstant: view.frame.width / 2),
+//            doneButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+
+            buttonStackView.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 16),
+            buttonStackView.leadingAnchor.constraint(equalTo: descriptionTextField.leadingAnchor),
+            buttonStackView.trailingAnchor.constraint(equalTo: descriptionTextField.trailingAnchor),
+            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
         ])
     }
     
@@ -121,6 +146,10 @@ final class TaskDetailViewController: UIViewController {
         if let text = descriptionTextField.text {
             presenter?.didTapDoneButton(description: text)
         }
+    }
+    
+    @objc private func deleteButtonTapped() {
+        presenter?.didTapDeleteButton()
     }
 }
 
@@ -165,7 +194,6 @@ extension TaskDetailViewController: TaskDetailViewControllerProtocol {
     }
     
     func setSelectedDescription(_ description: String) {
-        print("Setting")
         descriptionTextField.text = description
     }
 }

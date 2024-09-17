@@ -19,17 +19,6 @@ class TaskListViewController: UIViewController, TaskListViewControllerProtocol {
     // MARK: - Properties
     var presenter: TaskListPresenterProtocol?
     let configurator: TaskListConfiguratorProtocol = TaskListConfigurator()
-//    private var tasks: [TaskModel] = [
-//    TaskModel(id: UUID(), title: "One", description: "Description", createdAt: "Sep 12, 19:44", isCompleted: true),
-//    TaskModel(id: UUID(), title: "Two", description: "Description", createdAt: "Sep 14, 20:00", isCompleted: false),
-//    TaskModel(id: UUID(), title: "Three", description: "Description", createdAt: "Sep 15 21:30", isCompleted: true),
-//    TaskModel(id: UUID(), title: "One", description: "Description", createdAt: "Sep 12, 19:44", isCompleted: true),
-//    TaskModel(id: UUID(), title: "Two", description: "Description", createdAt: "Sep 14, 20:00", isCompleted: false),
-//    TaskModel(id: UUID(), title: "Three", description: "Description", createdAt: "Sep 15 21:30", isCompleted: true),
-//    TaskModel(id: UUID(), title: "One", description: "Description", createdAt: "Sep 12, 19:44", isCompleted: true),
-//    TaskModel(id: UUID(), title: "Two", description: "Description", createdAt: "Sep 14, 20:00", isCompleted: false),
-//    TaskModel(id: UUID(), title: "Three", description: "Description", createdAt: "Sep 15 21:30", isCompleted: true)
-//    ]
     private var tasks: [TaskModel] = []
     
     // MARK: - UI Elements
@@ -213,6 +202,7 @@ class TaskListViewController: UIViewController, TaskListViewControllerProtocol {
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension TaskListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         tasks.count
@@ -221,10 +211,12 @@ extension TaskListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskCell", for: indexPath) as! TaskCell
         cell.configure(with: tasks[indexPath.item], delegate: presenter as? TaskCellDelegate)
+        
         return cell
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension TaskListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth = collectionView.frame.width
@@ -244,5 +236,7 @@ extension TaskListViewController: UICollectionViewDelegate {
                 
         presenter?.didSelectTask(selectedTask)
     }
+    
+    
 }
 

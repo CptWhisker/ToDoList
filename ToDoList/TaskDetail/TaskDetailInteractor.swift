@@ -12,6 +12,7 @@ protocol TaskDetailInteractorProtocol: AnyObject {
     func fetchCategories()
     func createTask(_ newTask: TaskModel)
     func updateTask(with updatedTask: TaskModel)
+    func deleteTask(_ task: TaskModel)
 }
 
 final class TaskDetailInteractor: TaskDetailInteractorProtocol {
@@ -45,6 +46,11 @@ final class TaskDetailInteractor: TaskDetailInteractorProtocol {
     
     func updateTask(with updatedTask: TaskModel) {
         coreDataService.updateTask(updatedTask)
+        presenter?.didCreateOrUpdateTask()
+    }
+    
+    func deleteTask(_ task: TaskModel) {
+        coreDataService.deleteTask(task)
         presenter?.didCreateOrUpdateTask()
     }
 }

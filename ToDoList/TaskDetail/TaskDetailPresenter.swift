@@ -22,6 +22,7 @@ protocol TaskDetailPresenterProtocol: AnyObject {
     func didCreateOrUpdateTask()
     func didSelectCategory(_ category: String)
     func didTapDoneButton(description: String)
+    func didTapDeleteButton()
     func didTapBackButton()
 }
 
@@ -85,6 +86,12 @@ final class TaskDetailPresenter: TaskDetailPresenterProtocol {
                 )
                 interactor?.createTask(newTask)
             }
+        }
+    }
+    
+    func didTapDeleteButton() {
+        if let task {
+            interactor?.deleteTask(task)
         }
     }
     
