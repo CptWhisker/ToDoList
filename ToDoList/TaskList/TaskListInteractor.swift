@@ -42,47 +42,68 @@ final class TaskListInteractor: TaskListInteractorProtocol {
     
     // MARK: - Protocol Implementation
     func fetchTasks() {
-        if let categories = coreDataService.readCategories(), !categories.isEmpty {
-            coreDataService.deleteTasksNotFromToday()
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self else { return }
             
-            let tasks = coreDataService.readTasks()
-            let counts = getFilteredTasksCounts()
-            presenter?.didFetchTasks(tasks, counts: counts)
-        } else {
-            loadingHUD.showAnimation()
-            networkService.fetchTasks { [weak self] result in
-                loadingHUD.dismissAnimation()
-                switch result {
-                case .success(let categories):
-                    self?.coreDataService.createCategories(categories)
-                    let counts = FilteredTasksCount(all: 0, completed: 0, incompleted: 0)
-                    self?.presenter?.didFetchTasks([], counts: counts)
-                case .failure(let error):
-                    print("Failed to fetch categories from network:", error)
+            if let categories = self.coreDataService.readCategories(), !categories.isEmpty {
+                self.coreDataService.deleteTasksNotFromToday()
+                
+                let tasks = self.coreDataService.readTasks()
+                let counts = self.getFilteredTasksCounts()
+                
+                DispatchQueue.main.async {
+                    self.presenter?.didFetchTasks(tasks, counts: counts)
+                }
+            } else {
+                loadingHUD.showAnimation()
+                self.networkService.fetchTasks { [weak self] result in
+                    loadingHUD.dismissAnimation()
+                    
+                    switch result {
+                    case .success(let categories):
+                        self?.coreDataService.createCategories(categories)
+                        let counts = FilteredTasksCount(all: 0, completed: 0, incompleted: 0)
+                        DispatchQueue.main.async {
+                            self?.presenter?.didFetchTasks([], counts: counts)
+                        }
+                    case .failure(let error):
+                        print("Failed to fetch categories from network:", error)
+                    }
                 }
             }
         }
     }
     
     func fetchTasks(with filter: TaskFilter) {
-        var filteredTasks: [TaskCoreData] = []
-        
-        switch filter {
-        case .all:
-            filteredTasks = coreDataService.readTasks()
-        case .completed:
-            filteredTasks = coreDataService.readCompletedTasks()
-        case .incompleted:
-            filteredTasks = coreDataService.readIncompletedTasks()
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self else { return }
+            
+            var filteredTasks: [TaskCoreData] = []
+            
+            switch filter {
+            case .all:
+                filteredTasks = self.coreDataService.readTasks()
+            case .completed:
+                filteredTasks = self.coreDataService.readCompletedTasks()
+            case .incompleted:
+                filteredTasks = self.coreDataService.readIncompletedTasks()
+            }
+            
+            let counts = self.getFilteredTasksCounts()
+            
+            DispatchQueue.main.async {
+                self.presenter?.didFetchTasks(filteredTasks, counts: counts)
+            }
         }
-        
-        let counts = getFilteredTasksCounts()
-        presenter?.didFetchTasks(filteredTasks, counts: counts)
     }
     
     func updateTask(_ task: TaskModel, with filter: TaskFilter) {
-        coreDataService.updateTask(task)
-        fetchTasks(with: filter)
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self else { return }
+            
+            self.coreDataService.updateTask(task)
+            self.fetchTasks(with: filter)
+        }
     }
     
     func getFilteredTasksCounts() -> FilteredTasksCount {

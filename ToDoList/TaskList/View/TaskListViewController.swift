@@ -61,21 +61,21 @@ class TaskListViewController: UIViewController {
         return button
     }()
     private lazy var allTasksButton: FilterButton = {
-        let button = FilterButton(title: "All", count: 9)
+        let button = FilterButton(title: "All", count: 0)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(filterAll), for: .touchUpInside)
         return button
     }()
 
     private lazy var completedTasksButton: FilterButton = {
-        let button = FilterButton(title: "Closed", count: 6)
+        let button = FilterButton(title: "Closed", count: 0)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(filterCompleted), for: .touchUpInside)
         return button
     }()
 
     private lazy var incompletedTasksButton: FilterButton = {
-        let button = FilterButton(title: "Open", count: 3)
+        let button = FilterButton(title: "Open", count: 0)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(filterIncompleted), for: .touchUpInside)
         return button
