@@ -50,6 +50,7 @@ final class TaskDetailViewController: UIViewController {
     private lazy var categoriesTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .white
         tableView.layer.cornerRadius = 8
         tableView.dataSource = self
         tableView.delegate = self
@@ -60,8 +61,17 @@ final class TaskDetailViewController: UIViewController {
         let textField = PaddedTextField(padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0))
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = "Enter description"
+        textField.textColor = .black
         textField.layer.cornerRadius = 8
         textField.backgroundColor = .white
+        
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: UIColor.lightGray
+        ]
+        textField.attributedPlaceholder = NSAttributedString(
+            string: textField.placeholder ?? "",
+            attributes: attributes
+        )
         return textField
     }()
     private lazy var doneButton: UIButton = {
@@ -156,6 +166,8 @@ extension TaskDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         cell.textLabel?.text = categories[indexPath.row]
+        cell.backgroundColor = .white
+        cell.textLabel?.textColor = .black
         return cell
     }
     
