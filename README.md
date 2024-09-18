@@ -20,6 +20,18 @@ The ToDoList app is a task management application built using UIKit and VIPER ar
 - **Custom UI Components**: Includes custom UI components like `PaddedTextField` and `FilterButton` for enhanced user interaction.
 - **Progress HUD**: Implements a custom `loadingHUD` class for managing loading indicators with `ProgressHUD`.
 
+## Screenshots
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4e32ed5b-c9ea-4683-a30e-3279b9710645" alt="Task List" width="300"/>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="https://github.com/user-attachments/assets/8b33d31f-b4de-4082-a128-7c1b657dbbb6" alt="Task Detail" width="300"/>
+</p>
+
+<p align="center">
+  <b>Task List</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>Task Detail</b>
+</p>
+
 ## Installation
 
 1. Clone the repository:
