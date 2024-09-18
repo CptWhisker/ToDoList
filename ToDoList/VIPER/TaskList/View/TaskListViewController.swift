@@ -26,7 +26,7 @@ class TaskListViewController: UIViewController {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Today's Task"
+        label.text = "Today's Tasks"
         label.textColor = .black
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.textAlignment = .left
