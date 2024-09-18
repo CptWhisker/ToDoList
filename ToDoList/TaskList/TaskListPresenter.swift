@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - Protocol
 protocol TaskListPresenterProtocol: AnyObject {
     var viewController: TaskListViewControllerProtocol? { get set }
     var interactor: TaskListInteractorProtocol? { get set }
@@ -16,7 +17,6 @@ protocol TaskListPresenterProtocol: AnyObject {
     func filterCompletedTasks()
     func filterIncompletedTasks()
     func didFetchTasks(_ tasks: [TaskCoreData], counts: FilteredTasksCount)
-    func didUpdateTask(_ task: TaskModel, with counts: FilteredTasksCount)
     func didTapAddTaskButton()
     func didSelectTask(_ task: TaskModel)
 }
@@ -27,21 +27,25 @@ final class TaskListPresenter: TaskListPresenterProtocol {
     weak var viewController: TaskListViewControllerProtocol?
     var interactor: TaskListInteractorProtocol?
     var router: TaskListRouterProtocol?
+    var currentFilter: TaskFilter = .all
     
-    // MARK: - Public Methods
+    // MARK: - Protocol Implementation
     func viewDidLoad() {
         interactor?.fetchTasks()
     }
     
     func filterAllTasks() {
+        currentFilter = .all
         interactor?.fetchTasks(with: .all)
     }
     
     func filterCompletedTasks() {
+        currentFilter = .completed
         interactor?.fetchTasks(with: .completed)
     }
     
     func filterIncompletedTasks() {
+        currentFilter = .incompleted
         interactor?.fetchTasks(with: .incompleted)
     }
     
@@ -51,13 +55,6 @@ final class TaskListPresenter: TaskListPresenterProtocol {
         DispatchQueue.main.async { [weak viewController] in
             viewController?.setFilterCounts(counts)
             viewController?.showTasks(tasks)
-        }
-    }
-    
-    func didUpdateTask(_ task: TaskModel, with counts: FilteredTasksCount) {
-        DispatchQueue.main.async { [weak viewController] in
-            viewController?.setFilterCounts(counts)
-            viewController?.updateTask(task)
         }
     }
     
@@ -73,13 +70,13 @@ final class TaskListPresenter: TaskListPresenterProtocol {
 // MARK: - TaskCellDelegate
 extension TaskListPresenter: TaskCellDelegate {
     func didTapCompleteButton(for task: TaskModel) {
-        interactor?.updateTask(task)
+        interactor?.updateTask(task, with: currentFilter)
     }
 }
 
 // MARK: - TaskDetailDelegate
 extension TaskListPresenter: TaskDetailDelegate {
     func didCreateOrUpdateTask() {
-        interactor?.fetchTasks(with: .all)
+        interactor?.fetchTasks(with: currentFilter)
     }
 }

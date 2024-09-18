@@ -7,15 +7,17 @@
 
 import Foundation
 
+// MARK: - TaskFilter
 enum TaskFilter {
     case all, completed, incompleted
 }
 
+// MARK: - Protocol
 protocol TaskListInteractorProtocol: AnyObject {
     var presenter: TaskListPresenterProtocol? { get set }
     func fetchTasks()
     func fetchTasks(with filter: TaskFilter)
-    func updateTask(_ task: TaskModel)
+    func updateTask(_ task: TaskModel, with filter: TaskFilter)
 }
 
 final class TaskListInteractor: TaskListInteractorProtocol {
@@ -38,7 +40,7 @@ final class TaskListInteractor: TaskListInteractorProtocol {
         self.init(networkService: networkService, coreDataService: coreDataService)
     }
     
-    // MARK: - Public Methods
+    // MARK: - Protocol Implementation
     func fetchTasks() {
         if let categories = coreDataService.readCategories(), !categories.isEmpty {
             let tasks = coreDataService.readTasks()
@@ -74,18 +76,16 @@ final class TaskListInteractor: TaskListInteractorProtocol {
         presenter?.didFetchTasks(filteredTasks, counts: counts)
     }
     
+    func updateTask(_ task: TaskModel, with filter: TaskFilter) {
+        coreDataService.updateTask(task)
+        fetchTasks(with: filter)
+    }
+    
     func getFilteredTasksCounts() -> FilteredTasksCount {
         let all = coreDataService.readTasks().count
         let completed = coreDataService.readCompletedTasks().count
         let incompleted = coreDataService.readIncompletedTasks().count
         
         return FilteredTasksCount(all: all, completed: completed, incompleted: incompleted)
-    }
-    
-    func updateTask(_ task: TaskModel) {
-        coreDataService.updateTask(task)
-        let counts = getFilteredTasksCounts()
-
-        presenter?.didUpdateTask(task, with: counts)
     }
 }

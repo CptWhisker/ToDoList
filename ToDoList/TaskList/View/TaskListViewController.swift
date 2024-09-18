@@ -7,11 +7,11 @@
 
 import UIKit
 
+// MARK: - Protocol
 protocol TaskListViewControllerProtocol: AnyObject {
     var presenter: TaskListPresenterProtocol? { get set }
     func showTasks(_ tasks: [TaskModel])
     func setFilterCounts(_ counts: FilteredTasksCount)
-    func updateTask(_ task: TaskModel)
 }
 
 class TaskListViewController: UIViewController {
@@ -163,6 +163,7 @@ class TaskListViewController: UIViewController {
         ])
     }
 
+    // MARK: - Actions
     @objc private func addNewTask() {
         presenter?.didTapAddTaskButton()
     }
@@ -217,6 +218,7 @@ extension TaskListViewController: UICollectionViewDelegate {
     }
 }
 
+// MARK: - Protocol Implementation
 extension TaskListViewController: TaskListViewControllerProtocol {
     func showTasks(_ tasks: [TaskModel]) {
         self.tasks = tasks
@@ -227,16 +229,5 @@ extension TaskListViewController: TaskListViewControllerProtocol {
         allTasksButton.setTitle("All   \(counts.all)", for: .normal)
         incompletedTasksButton.setTitle("Open   \(counts.incompleted)", for: .normal)
         completedTasksButton.setTitle("Closed   \(counts.completed)", for: .normal)
-    }
-    
-    func updateTask(_ task: TaskModel) {
-        guard let indexPath = taskIndexPath(for: task) else { return }
-        tasksCollectionView.reloadItems(at: [indexPath])
-    }
-
-    private func taskIndexPath(for task: TaskModel) -> IndexPath? {
-        guard let index = tasks.firstIndex(where: { $0.id == task.id }) else { return nil }
-        tasks[index] = task
-        return IndexPath(item: index, section: 0)
     }
 }
