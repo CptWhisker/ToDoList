@@ -64,10 +64,8 @@ final class TaskListPresenter: TaskListPresenterProtocol {
         let tasks = tasks.map { TaskModel(from: $0) }
         let filter = currentFilter
         
-        DispatchQueue.main.async { [weak viewController] in
-            viewController?.setFilterCounts(counts, currentFilter: filter)
-            viewController?.showTasks(tasks)
-        }
+        viewController?.setFilterCounts(counts, currentFilter: filter)
+        viewController?.showTasks(tasks)
     }
     
     func didTapAddTaskButton() {
