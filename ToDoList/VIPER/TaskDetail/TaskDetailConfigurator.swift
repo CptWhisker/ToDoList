@@ -7,12 +7,14 @@
 
 import Foundation
 
+// MARK: - Protocol
 protocol TaskDetailConfiguratorProtocol: AnyObject {
     func configure(with viewController: TaskDetailViewControllerProtocol)
 }
 
 final class TaskDetailConfigurator: TaskDetailConfiguratorProtocol {
     
+    // MARK: - Protocol Implementation
     func configure(with viewController: TaskDetailViewControllerProtocol) {
         let presenter: TaskDetailPresenterProtocol = TaskDetailPresenter()
         let interactor: TaskDetailInteractorProtocol = TaskDetailInteractor()
@@ -28,5 +30,4 @@ final class TaskDetailConfigurator: TaskDetailConfiguratorProtocol {
         
         router.viewController = viewController
     }
-    
 }

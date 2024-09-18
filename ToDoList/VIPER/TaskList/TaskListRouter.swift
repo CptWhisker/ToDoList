@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Protocol
 protocol TaskListRouterProtocol: AnyObject {
     var viewController: TaskListViewControllerProtocol? { get set }
     func navigateToTaskDetail(with task: TaskModel?, delegate: TaskDetailDelegate)
@@ -16,6 +17,7 @@ final class TaskListRouter: TaskListRouterProtocol {
 
     weak var viewController: TaskListViewControllerProtocol?
         
+    // MARK: - Protocol Implementation
     func navigateToTaskDetail(with task: TaskModel?, delegate: TaskDetailDelegate) {
         let taskDetailVC = TaskDetailViewController()
         taskDetailVC.configurator.configure(with: taskDetailVC)

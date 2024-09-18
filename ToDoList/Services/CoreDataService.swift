@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 
+// MARK: - Protocol
 protocol CoreDataServiceProtocol: AnyObject {
     func createCategories(_ categories: [TaskCategoryModel])
     func createTask(_ task: TaskModel)
@@ -25,7 +26,7 @@ final class CoreDataService: CoreDataServiceProtocol {
     // MARK: - Properties
     private let context: NSManagedObjectContext
 
-    // MARK: - Initializers
+    // MARK: - Initialization
     init(context: NSManagedObjectContext) {
         self.context = context
     }

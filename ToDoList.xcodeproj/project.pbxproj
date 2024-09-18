@@ -147,15 +147,13 @@
 		CE11F91E2C96B91A00B2A04D /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				CE11F9702C99628100B2A04D /* TaskDetail */,
-				CE11F96A2C96FF3C00B2A04D /* Helpers */,
-				CE11F9612C96EE9F00B2A04D /* Services */,
-				CE11F95A2C96C96300B2A04D /* Entity */,
-				CE11F9532C96C53700B2A04D /* TaskList */,
 				CE11F91F2C96B91A00B2A04D /* AppDelegate.swift */,
 				CE11F9212C96B91A00B2A04D /* SceneDelegate.swift */,
-				CE11F92B2C96B92200B2A04D /* Assets.xcassets */,
+				CE11F9942C9AE77000B2A04D /* VIPER */,
+				CE11F9612C96EE9F00B2A04D /* Services */,
+				CE11F96A2C96FF3C00B2A04D /* Helpers */,
 				CE11F92D2C96B92200B2A04D /* LaunchScreen.storyboard */,
+				CE11F92B2C96B92200B2A04D /* Assets.xcassets */,
 				CE11F9302C96B92200B2A04D /* Info.plist */,
 			);
 			path = ToDoList;
@@ -183,8 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				CE11F96F2C973F6000B2A04D /* View */,
-				CE11F9542C96C5DD00B2A04D /* TaskListInteractor.swift */,
 				CE11F9562C96C60600B2A04D /* TaskListPresenter.swift */,
+				CE11F9542C96C5DD00B2A04D /* TaskListInteractor.swift */,
 				CE11F9582C96C62600B2A04D /* TaskListRouter.swift */,
 				CE11F95D2C96D96600B2A04D /* TaskListConfigurator.swift */,
 			);
@@ -252,6 +250,16 @@
 				CE11F98C2C9AD94100B2A04D /* MockTaskListRouter.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		CE11F9942C9AE77000B2A04D /* VIPER */ = {
+			isa = PBXGroup;
+			children = (
+				CE11F95A2C96C96300B2A04D /* Entity */,
+				CE11F9532C96C53700B2A04D /* TaskList */,
+				CE11F9702C99628100B2A04D /* TaskDetail */,
+			);
+			path = VIPER;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -16,7 +16,6 @@ struct TaskModel {
 }
 
 extension TaskModel {
-    
     init(from entity: TaskCoreData) {
         self.id = entity.taskID ?? UUID()
         self.title = entity.taskTitle ?? "default"

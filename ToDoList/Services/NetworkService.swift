@@ -7,10 +7,12 @@
 
 import Foundation
 
+// MARK: - Protocol
 protocol NetworkServiceProtocol: AnyObject {
     func fetchTasks(completion: @escaping (Result<[TaskCategoryModel], Error>) -> Void)
 }
 
+// MARK: - NetworkError
 enum NetworkError: Error {
     case invalidURL
     case badResponse
@@ -19,8 +21,10 @@ enum NetworkError: Error {
 
 final class NetworkService: NetworkServiceProtocol {
     
+    // MARK: - Properties
     let decoder = JSONDecoder()
     
+    // MARK: - Protocol Implementation
     func fetchTasks(completion: @escaping (Result<[TaskCategoryModel], Error>) -> Void) {
         guard let url = URL(string: "https://dummyjson.com/todos") else {
             completion(.failure(NetworkError.invalidURL))

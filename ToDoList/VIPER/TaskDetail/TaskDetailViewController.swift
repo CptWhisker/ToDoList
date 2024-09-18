@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - Protocol
 protocol TaskDetailViewControllerProtocol: AnyObject {
     var presenter: TaskDetailPresenterProtocol? { get set }
     func showCategories(_ categories: [String])
@@ -20,23 +21,6 @@ final class TaskDetailViewController: UIViewController {
     let configurator: TaskDetailConfiguratorProtocol
     private var categories: [String] = []
     
-    // MARK: - Initializers
-    init(configurator: TaskDetailConfiguratorProtocol) {
-        self.configurator = configurator
-        
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    convenience init() {
-        let configurator: TaskDetailConfiguratorProtocol = TaskDetailConfigurator()
-        
-        self.init(configurator: configurator)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // MARK: - UI Elements
     private lazy var backButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
@@ -47,6 +31,7 @@ final class TaskDetailViewController: UIViewController {
         )
         return button
     }()
+    
     private lazy var categoriesTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -57,6 +42,7 @@ final class TaskDetailViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CategoryCell")
         return tableView
     }()
+    
     private lazy var descriptionTextField: UITextField = {
         let textField = PaddedTextField(padding: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0))
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -74,6 +60,7 @@ final class TaskDetailViewController: UIViewController {
         )
         return textField
     }()
+    
     private lazy var doneButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -84,6 +71,7 @@ final class TaskDetailViewController: UIViewController {
         button.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
         return button
     }()
+    
     private lazy var deleteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -94,6 +82,7 @@ final class TaskDetailViewController: UIViewController {
         button.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
         return button
     }()
+    
     private lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [deleteButton, doneButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -102,6 +91,23 @@ final class TaskDetailViewController: UIViewController {
         stackView.spacing = 16
         return stackView
     }()
+    
+    // MARK: - Initialization
+    init(configurator: TaskDetailConfiguratorProtocol) {
+        self.configurator = configurator
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    convenience init() {
+        let configurator: TaskDetailConfiguratorProtocol = TaskDetailConfigurator()
+        
+        self.init(configurator: configurator)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -112,6 +118,7 @@ final class TaskDetailViewController: UIViewController {
         configureUI()
     }
     
+    // MARK: - UI Configuration
     private func configureUI() {
         view.backgroundColor = .todoBackground
 
@@ -189,9 +196,8 @@ extension TaskDetailViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - TaskDetailViewControllerProtocol
+// MARK: - Protocol Implementation
 extension TaskDetailViewController: TaskDetailViewControllerProtocol {
-    
     func showCategories(_ categories: [String]) {
         self.categories = categories
         

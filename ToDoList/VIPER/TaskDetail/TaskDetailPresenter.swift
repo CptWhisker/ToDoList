@@ -7,10 +7,12 @@
 
 import Foundation
 
+// MARK: - DelegateProtocol
 protocol TaskDetailDelegate: AnyObject {
     func didCreateOrUpdateTask()
 }
 
+// MARK: - Protocol
 protocol TaskDetailPresenterProtocol: AnyObject {
     var delegate: TaskDetailDelegate? { get set }
     var viewController: TaskDetailViewControllerProtocol? { get set }
@@ -36,7 +38,7 @@ final class TaskDetailPresenter: TaskDetailPresenterProtocol {
     var task: TaskModel?
     var selectedCategory: String?
     
-    // MARK: - Public Methods
+    // MARK: - Protocol Implementation
     func viewDidLoad() {
         interactor?.fetchCategories()
         

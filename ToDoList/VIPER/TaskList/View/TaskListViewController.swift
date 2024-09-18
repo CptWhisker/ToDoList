@@ -32,6 +32,7 @@ class TaskListViewController: UIViewController {
         label.textAlignment = .left
         return label
     }()
+    
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,12 +40,14 @@ class TaskListViewController: UIViewController {
         label.font = .systemFont(ofSize: 18)
         return label
     }()
+    
     private lazy var labelsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, dateLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         return stackView
     }()
+    
     private lazy var newTaskButton: UIButton = {
         var config = UIButton.Configuration.filled()
         config.title = "New Task"
@@ -60,6 +63,7 @@ class TaskListViewController: UIViewController {
         button.addTarget(self, action: #selector(addNewTask), for: .touchUpInside)
         return button
     }()
+    
     private lazy var allTasksButton: FilterButton = {
         let button = FilterButton(title: "All", count: 0)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -88,6 +92,7 @@ class TaskListViewController: UIViewController {
         view.backgroundColor = .gray
         return view
     }()
+    
     private lazy var filterButtonsStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [allTasksButton, filterButtonsSeparator, incompletedTasksButton, completedTasksButton])
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -95,6 +100,7 @@ class TaskListViewController: UIViewController {
         stackView.spacing = 10
         return stackView
     }()
+    
     private lazy var tasksCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false

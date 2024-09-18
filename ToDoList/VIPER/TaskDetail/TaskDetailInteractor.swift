@@ -22,7 +22,7 @@ final class TaskDetailInteractor: TaskDetailInteractorProtocol {
     weak var presenter: TaskDetailPresenterProtocol?
     private let coreDataService: CoreDataServiceProtocol
     
-    // MARK: - Initializers
+    // MARK: - Initialization
     init(coreDataService: CoreDataServiceProtocol) {
         self.coreDataService = coreDataService
     }

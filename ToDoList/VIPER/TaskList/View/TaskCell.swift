@@ -7,6 +7,7 @@
 
 import UIKit
 
+// MARK: - DelegateProtocol
 protocol TaskCellDelegate: AnyObject {
     func didTapCompleteButton(for task: TaskModel)
 }
@@ -83,7 +84,7 @@ final class TaskCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - UI Setup
+    // MARK: - UI Configuration
     private func configureUI() {
         contentView.backgroundColor = .white
         
@@ -115,18 +116,7 @@ final class TaskCell: UICollectionViewCell {
         ])
     }
     
-    // MARK: - Configuration
-    func configure(with task: TaskModel, delegate: TaskCellDelegate?) {
-        self.task = task
-        self.delegate = delegate
-        
-        descriptionLabel.text = task.description
-        dateLabel.text = task.createdAt
-        
-        updateTitle(for: task)
-        updateCompletionButton(for: task)
-    }
-    
+    // MARK: - Private Methods
     private func updateTitle(for task: TaskModel) {
         let titleAttributes: [NSAttributedString.Key: Any] = task.isCompleted
             ? [.strikethroughStyle: NSUnderlineStyle.single.rawValue]
@@ -139,6 +129,18 @@ final class TaskCell: UICollectionViewCell {
     private func updateCompletionButton(for task: TaskModel) {
         let imageName = task.isCompleted ? "checkmark.circle.fill" : "circle"
         completionButton.setImage(UIImage(systemName: imageName), for: .normal)
+    }
+    
+    // MARK: - Public Methods
+    func configure(with task: TaskModel, delegate: TaskCellDelegate?) {
+        self.task = task
+        self.delegate = delegate
+        
+        descriptionLabel.text = task.description
+        dateLabel.text = task.createdAt
+        
+        updateTitle(for: task)
+        updateCompletionButton(for: task)
     }
     
     // MARK: - Actions

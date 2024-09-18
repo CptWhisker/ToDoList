@@ -7,12 +7,14 @@
 
 import Foundation
 
+// MARK: - Protocol
 protocol TaskListConfiguratorProtocol: AnyObject {
     func configure(with viewController: TaskListViewControllerProtocol)
 }
 
 final class TaskListConfigurator: TaskListConfiguratorProtocol {
 
+    // MARK: - Protocol Configuration
     func configure(with viewController: TaskListViewControllerProtocol) {
         let presenter: TaskListPresenterProtocol = TaskListPresenter()
         let interactor: TaskListInteractorProtocol = TaskListInteractor()

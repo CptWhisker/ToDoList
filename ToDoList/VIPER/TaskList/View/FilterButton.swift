@@ -9,6 +9,7 @@ import UIKit
 
 class FilterButton: UIButton {
     
+    // MARK: - UI Elements
     private let filterLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -16,6 +17,7 @@ class FilterButton: UIButton {
         label.textColor = .gray
         return label
     }()
+    
     private let countLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -23,6 +25,7 @@ class FilterButton: UIButton {
         label.textColor = .white
         return label
     }()
+    
     private let selectionIndicator: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +33,7 @@ class FilterButton: UIButton {
         return view
     }()
     
+    // MARK: - Initialization
     init(title: String, count: Int) {
         super.init(frame: .zero)
         
@@ -42,6 +46,7 @@ class FilterButton: UIButton {
         configure(title: "", count: 0)
     }
     
+    // MARK: - UI Configuration
     private func configure(title: String, count: Int) {
         addSubview(filterLabel)
         addSubview(selectionIndicator)
@@ -65,6 +70,7 @@ class FilterButton: UIButton {
         ])
     }
     
+    // MARK: - Public Methods
     func updateCount(_ count: Int) {
         countLabel.text = "\(count)"
     }
