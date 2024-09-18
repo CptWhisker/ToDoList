@@ -7,6 +7,7 @@
 
 import Foundation
 
+// MARK: - Protocol
 protocol TaskDetailInteractorProtocol: AnyObject {
     var presenter: TaskDetailPresenterProtocol? { get set }
     func fetchCategories()
@@ -32,25 +33,45 @@ final class TaskDetailInteractor: TaskDetailInteractorProtocol {
         self.init(coreDataService: coreDataService)
     }
     
-    // MARK: - Public Methods
+    // MARK: - Protocol Implementation
     func fetchCategories() {
-        if let categories = coreDataService.readCategories() {
-            presenter?.didFetchTaskCategories(categories)
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            if let categories = self.coreDataService.readCategories() {
+                DispatchQueue.main.async {
+                    self.presenter?.didFetchTaskCategories(categories)
+                }
+            }
         }
     }
     
     func createTask(_ newTask: TaskModel) {
-        coreDataService.createTask(newTask)
-        presenter?.didCreateOrUpdateTask()
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.coreDataService.createTask(newTask)
+            DispatchQueue.main.async {
+                self.presenter?.didCreateOrUpdateTask()
+            }
+        }
     }
     
     func updateTask(with updatedTask: TaskModel) {
-        coreDataService.updateTask(updatedTask)
-        presenter?.didCreateOrUpdateTask()
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.coreDataService.updateTask(updatedTask)
+            DispatchQueue.main.async {
+                self.presenter?.didCreateOrUpdateTask()
+            }
+        }
     }
     
     func deleteTask(_ task: TaskModel) {
-        coreDataService.deleteTask(task)
-        presenter?.didCreateOrUpdateTask()
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            guard let self = self else { return }
+            self.coreDataService.deleteTask(task)
+            DispatchQueue.main.async {
+                self.presenter?.didCreateOrUpdateTask()
+            }
+        }
     }
 }
