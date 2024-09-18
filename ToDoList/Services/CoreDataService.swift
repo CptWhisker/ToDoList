@@ -17,6 +17,7 @@ protocol CoreDataServiceProtocol: AnyObject {
     func readIncompletedTasks() -> [TaskCoreData]
     func updateTask(_ task: TaskModel)
     func deleteTask(_ task: TaskModel)
+    func deleteTasksNotFromToday()
 }
 
 final class CoreDataService: CoreDataServiceProtocol {
@@ -156,6 +157,28 @@ final class CoreDataService: CoreDataServiceProtocol {
             }
         } catch {
             print("Failed to delete task:", error)
+        }
+    }
+    
+    func deleteTasksNotFromToday() {
+        let fetchRequest = TaskCoreData.fetchRequest()
+        
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: Date())
+        
+        fetchRequest.predicate = NSPredicate(
+            format: "%K < %@",
+            #keyPath(TaskCoreData.creationDate), startOfDay as NSDate
+        )
+        
+        do {
+            let oldTasks = try context.fetch(fetchRequest)
+            for task in oldTasks {
+                context.delete(task)
+            }
+            try context.save()
+        } catch {
+            print("Failed to delete tasks not from today:", error)
         }
     }
 }

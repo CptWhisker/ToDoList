@@ -12,6 +12,7 @@ protocol TaskListViewControllerProtocol: AnyObject {
     var presenter: TaskListPresenterProtocol? { get set }
     func showTasks(_ tasks: [TaskModel])
     func setFilterCounts(_ counts: FilteredTasksCount, currentFilter: TaskFilter)
+    func updateDateLabel(with date: String)
 }
 
 class TaskListViewController: UIViewController {
@@ -35,7 +36,7 @@ class TaskListViewController: UIViewController {
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Wednesday, 11 May"
+//        label.text = "Wednesday, 11 May"
         label.textColor = .gray
         label.font = .systemFont(ofSize: 18)
         return label
@@ -223,6 +224,10 @@ extension TaskListViewController: TaskListViewControllerProtocol {
     func showTasks(_ tasks: [TaskModel]) {
         self.tasks = tasks
         tasksCollectionView.reloadData()
+    }
+    
+    func updateDateLabel(with date: String) {
+        dateLabel.text = date
     }
     
     func setFilterCounts(_ counts: FilteredTasksCount, currentFilter: TaskFilter) {

@@ -13,6 +13,7 @@ protocol TaskListPresenterProtocol: AnyObject {
     var interactor: TaskListInteractorProtocol? { get set }
     var router: TaskListRouterProtocol? { get set }
     func viewDidLoad()
+    func getCurrentDate() -> String
     func filterAllTasks()
     func filterCompletedTasks()
     func filterIncompletedTasks()
@@ -31,7 +32,17 @@ final class TaskListPresenter: TaskListPresenterProtocol {
     
     // MARK: - Protocol Implementation
     func viewDidLoad() {
+        let date = getCurrentDate()
+        viewController?.updateDateLabel(with: date)
+        
         interactor?.fetchTasks()
+    }
+    
+    func getCurrentDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .long
+        dateFormatter.locale = Locale.current
+        return dateFormatter.string(from: Date())
     }
     
     func filterAllTasks() {

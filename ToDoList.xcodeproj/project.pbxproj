@@ -34,6 +34,8 @@
 		CE11F97A2C9962E300B2A04D /* TaskDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9792C9962E300B2A04D /* TaskDetailRouter.swift */; };
 		CE11F97C2C99BD7600B2A04D /* PaddedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F97B2C99BD7600B2A04D /* PaddedTextField.swift */; };
 		CE11F97E2C99C54900B2A04D /* UITableViewCell +Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F97D2C99C54900B2A04D /* UITableViewCell +Extensions.swift */; };
+		CE11F9812C9ABF4900B2A04D /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = CE11F9802C9ABF4900B2A04D /* ProgressHUD */; };
+		CE11F9832C9ABF5B00B2A04D /* loadingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9822C9ABF5B00B2A04D /* loadingHUD.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,7 @@
 		CE11F9792C9962E300B2A04D /* TaskDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailRouter.swift; sourceTree = "<group>"; };
 		CE11F97B2C99BD7600B2A04D /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		CE11F97D2C99C54900B2A04D /* UITableViewCell +Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell +Extensions.swift"; sourceTree = "<group>"; };
+		CE11F9822C9ABF5B00B2A04D /* loadingHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadingHUD.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE11F9812C9ABF4900B2A04D /* ProgressHUD in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +208,7 @@
 				CE11F9642C96F0EE00B2A04D /* CoreDataStack.swift */,
 				CE11F97B2C99BD7600B2A04D /* PaddedTextField.swift */,
 				CE11F97D2C99C54900B2A04D /* UITableViewCell +Extensions.swift */,
+				CE11F9822C9ABF5B00B2A04D /* loadingHUD.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -245,6 +250,9 @@
 			dependencies = (
 			);
 			name = ToDoList;
+			packageProductDependencies = (
+				CE11F9802C9ABF4900B2A04D /* ProgressHUD */,
+			);
 			productName = ToDoList;
 			productReference = CE11F91C2C96B91A00B2A04D /* ToDoList.app */;
 			productType = "com.apple.product-type.application";
@@ -317,6 +325,9 @@
 				Base,
 			);
 			mainGroup = CE11F9132C96B91A00B2A04D;
+			packageReferences = (
+				CE11F97F2C9ABF4900B2A04D /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+			);
 			productRefGroup = CE11F91D2C96B91A00B2A04D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -363,6 +374,7 @@
 				CE11F9632C96EEB800B2A04D /* NetworkService.swift in Sources */,
 				CE11F9782C9962D400B2A04D /* TaskDetailConfigurator.swift in Sources */,
 				CE11F9672C96F15500B2A04D /* CoreDataService.swift in Sources */,
+				CE11F9832C9ABF5B00B2A04D /* loadingHUD.swift in Sources */,
 				CE11F9242C96B91A00B2A04D /* TaskListViewController.swift in Sources */,
 				CE11F9202C96B91A00B2A04D /* AppDelegate.swift in Sources */,
 				CE11F96E2C970C8000B2A04D /* TaskCell.swift in Sources */,
@@ -717,6 +729,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE11F97F2C9ABF4900B2A04D /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 14.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE11F9802C9ABF4900B2A04D /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE11F97F2C9ABF4900B2A04D /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		CE11F9282C96B91A00B2A04D /* ToDoList.xcdatamodeld */ = {

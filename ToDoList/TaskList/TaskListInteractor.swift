@@ -43,11 +43,15 @@ final class TaskListInteractor: TaskListInteractorProtocol {
     // MARK: - Protocol Implementation
     func fetchTasks() {
         if let categories = coreDataService.readCategories(), !categories.isEmpty {
+            coreDataService.deleteTasksNotFromToday()
+            
             let tasks = coreDataService.readTasks()
             let counts = getFilteredTasksCounts()
             presenter?.didFetchTasks(tasks, counts: counts)
         } else {
+            loadingHUD.showAnimation()
             networkService.fetchTasks { [weak self] result in
+                loadingHUD.dismissAnimation()
                 switch result {
                 case .success(let categories):
                     self?.coreDataService.createCategories(categories)
