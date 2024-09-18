@@ -23,7 +23,6 @@ class TaskListViewController: UIViewController {
     private var tasks: [TaskModel] = []
     
     // MARK: - UI Elements
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -36,7 +35,6 @@ class TaskListViewController: UIViewController {
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.text = "Wednesday, 11 May"
         label.textColor = .gray
         label.font = .systemFont(ofSize: 18)
         return label
@@ -62,39 +60,27 @@ class TaskListViewController: UIViewController {
         button.addTarget(self, action: #selector(addNewTask), for: .touchUpInside)
         return button
     }()
-    private lazy var allTasksButton: UIButton = {
-        let button = UIButton()
+    private lazy var allTasksButton: FilterButton = {
+        let button = FilterButton(title: "All", count: 9)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("All   9", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.titleLabel?.textAlignment = .left
-        button.widthAnchor.constraint(equalToConstant: view.bounds.width / 6).isActive = true
         button.addTarget(self, action: #selector(filterAll), for: .touchUpInside)
         return button
     }()
-    private lazy var completedTasksButton: UIButton = {
-        let button = UIButton()
+
+    private lazy var completedTasksButton: FilterButton = {
+        let button = FilterButton(title: "Closed", count: 6)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Closed   6", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.titleLabel?.textAlignment = .left
-        button.widthAnchor.constraint(equalToConstant: view.bounds.width / 6).isActive = true
         button.addTarget(self, action: #selector(filterCompleted), for: .touchUpInside)
         return button
     }()
-    private lazy var incompletedTasksButton: UIButton = {
-        let button = UIButton()
+
+    private lazy var incompletedTasksButton: FilterButton = {
+        let button = FilterButton(title: "Open", count: 3)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Open   3", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.titleLabel?.textAlignment = .left
-        button.widthAnchor.constraint(equalToConstant: view.bounds.width / 6).isActive = true
         button.addTarget(self, action: #selector(filterIncompleted), for: .touchUpInside)
         return button
     }()
+
     private lazy var filterButtonsSeparator: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -231,25 +217,25 @@ extension TaskListViewController: TaskListViewControllerProtocol {
     }
     
     func setFilterCounts(_ counts: FilteredTasksCount, currentFilter: TaskFilter) {
-        allTasksButton.setTitle("All   \(counts.all)", for: .normal)
-        incompletedTasksButton.setTitle("Open   \(counts.incompleted)", for: .normal)
-        completedTasksButton.setTitle("Closed   \(counts.completed)", for: .normal)
+        allTasksButton.updateCount(counts.all)
+        incompletedTasksButton.updateCount(counts.incompleted)
+        completedTasksButton.updateCount(counts.completed)
         
         setFilterButtonAppearance(basedOn: currentFilter)
     }
     
     private func setFilterButtonAppearance(basedOn filter: TaskFilter) {
-        allTasksButton.setTitleColor(.gray, for: .normal)
-        completedTasksButton.setTitleColor(.gray, for: .normal)
-        incompletedTasksButton.setTitleColor(.gray, for: .normal)
+        allTasksButton.setColor(to: .lightGray)
+        completedTasksButton.setColor(to: .lightGray)
+        incompletedTasksButton.setColor(to: .lightGray)
         
         switch filter {
         case .all:
-            allTasksButton.setTitleColor(.systemBlue, for: .normal)
+            allTasksButton.setColor(to: .systemBlue)
         case .completed:
-            completedTasksButton.setTitleColor(.systemBlue, for: .normal)
+            completedTasksButton.setColor(to: .systemBlue)
         case .incompleted:
-            incompletedTasksButton.setTitleColor(.systemBlue, for: .normal)
+            incompletedTasksButton.setColor(to: .systemBlue)
         }
     }
 }

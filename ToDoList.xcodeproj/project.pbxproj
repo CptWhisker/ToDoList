@@ -36,6 +36,7 @@
 		CE11F97E2C99C54900B2A04D /* UITableViewCell +Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F97D2C99C54900B2A04D /* UITableViewCell +Extensions.swift */; };
 		CE11F9812C9ABF4900B2A04D /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = CE11F9802C9ABF4900B2A04D /* ProgressHUD */; };
 		CE11F9832C9ABF5B00B2A04D /* loadingHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9822C9ABF5B00B2A04D /* loadingHUD.swift */; };
+		CE11F9852C9AC89500B2A04D /* FilterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11F9842C9AC89500B2A04D /* FilterButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,6 +89,7 @@
 		CE11F97B2C99BD7600B2A04D /* PaddedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedTextField.swift; sourceTree = "<group>"; };
 		CE11F97D2C99C54900B2A04D /* UITableViewCell +Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell +Extensions.swift"; sourceTree = "<group>"; };
 		CE11F9822C9ABF5B00B2A04D /* loadingHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loadingHUD.swift; sourceTree = "<group>"; };
+		CE11F9842C9AC89500B2A04D /* FilterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +220,7 @@
 			children = (
 				CE11F9232C96B91A00B2A04D /* TaskListViewController.swift */,
 				CE11F96D2C970C8000B2A04D /* TaskCell.swift */,
+				CE11F9842C9AC89500B2A04D /* FilterButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 				CE11F9832C9ABF5B00B2A04D /* loadingHUD.swift in Sources */,
 				CE11F9242C96B91A00B2A04D /* TaskListViewController.swift in Sources */,
 				CE11F9202C96B91A00B2A04D /* AppDelegate.swift in Sources */,
+				CE11F9852C9AC89500B2A04D /* FilterButton.swift in Sources */,
 				CE11F96E2C970C8000B2A04D /* TaskCell.swift in Sources */,
 				CE11F9652C96F0EE00B2A04D /* CoreDataStack.swift in Sources */,
 				CE11F97A2C9962E300B2A04D /* TaskDetailRouter.swift in Sources */,
