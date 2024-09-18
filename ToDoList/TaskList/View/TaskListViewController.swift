@@ -11,7 +11,7 @@ import UIKit
 protocol TaskListViewControllerProtocol: AnyObject {
     var presenter: TaskListPresenterProtocol? { get set }
     func showTasks(_ tasks: [TaskModel])
-    func setFilterCounts(_ counts: FilteredTasksCount)
+    func setFilterCounts(_ counts: FilteredTasksCount, currentFilter: TaskFilter)
 }
 
 class TaskListViewController: UIViewController {
@@ -65,7 +65,7 @@ class TaskListViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("All   9", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitleColor(.gray, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 14)
         button.titleLabel?.textAlignment = .left
         button.widthAnchor.constraint(equalToConstant: view.bounds.width / 6).isActive = true
@@ -225,9 +225,26 @@ extension TaskListViewController: TaskListViewControllerProtocol {
         tasksCollectionView.reloadData()
     }
     
-    func setFilterCounts(_ counts: FilteredTasksCount) {
+    func setFilterCounts(_ counts: FilteredTasksCount, currentFilter: TaskFilter) {
         allTasksButton.setTitle("All   \(counts.all)", for: .normal)
         incompletedTasksButton.setTitle("Open   \(counts.incompleted)", for: .normal)
         completedTasksButton.setTitle("Closed   \(counts.completed)", for: .normal)
+        
+        setFilterButtonAppearance(basedOn: currentFilter)
+    }
+    
+    private func setFilterButtonAppearance(basedOn filter: TaskFilter) {
+        allTasksButton.setTitleColor(.gray, for: .normal)
+        completedTasksButton.setTitleColor(.gray, for: .normal)
+        incompletedTasksButton.setTitleColor(.gray, for: .normal)
+        
+        switch filter {
+        case .all:
+            allTasksButton.setTitleColor(.systemBlue, for: .normal)
+        case .completed:
+            completedTasksButton.setTitleColor(.systemBlue, for: .normal)
+        case .incompleted:
+            incompletedTasksButton.setTitleColor(.systemBlue, for: .normal)
+        }
     }
 }

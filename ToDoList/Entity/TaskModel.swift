@@ -27,7 +27,7 @@ extension TaskModel {
     
     private static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateStyle = .short
+        formatter.dateStyle = .none
         formatter.timeStyle = .short
         return formatter
     }()

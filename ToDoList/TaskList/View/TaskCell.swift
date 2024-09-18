@@ -39,7 +39,8 @@ final class TaskCell: UICollectionViewCell {
         let stackView = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.spacing = 4
+        stackView.spacing = 0
+        stackView.distribution = .fillProportionally
         return stackView
     }()
     
@@ -91,9 +92,10 @@ final class TaskCell: UICollectionViewCell {
         contentView.addSubview(dateLabel)
         
         NSLayoutConstraint.activate([
-            infoStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            infoStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             infoStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            infoStackView.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 3/4),
+            infoStackView.trailingAnchor.constraint(equalTo: completionButton.leadingAnchor),
+            infoStackView.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 3/5),
             
             completionButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             completionButton.centerYAnchor.constraint(equalTo: infoStackView.centerYAnchor),
@@ -102,13 +104,13 @@ final class TaskCell: UICollectionViewCell {
             
             separatorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             separatorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            separatorLine.topAnchor.constraint(equalTo: infoStackView.bottomAnchor, constant: 8),
+            separatorLine.topAnchor.constraint(equalTo: infoStackView.bottomAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: 1),
             
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            dateLabel.topAnchor.constraint(equalTo: separatorLine.bottomAnchor, constant: 8),
-            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
+            dateLabel.topAnchor.constraint(equalTo: separatorLine.bottomAnchor),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
         ])
     }
     
@@ -117,12 +119,24 @@ final class TaskCell: UICollectionViewCell {
         self.task = task
         self.delegate = delegate
         
-        titleLabel.text = task.title
         descriptionLabel.text = task.description
         dateLabel.text = task.createdAt
         
+        updateTitle(for: task)
+        updateCompletionButton(for: task)
+    }
+    
+    private func updateTitle(for task: TaskModel) {
+        let titleAttributes: [NSAttributedString.Key: Any] = task.isCompleted
+            ? [.strikethroughStyle: NSUnderlineStyle.single.rawValue]
+            : [:]
+        
+        let attributedTitle = NSAttributedString(string: task.title, attributes: titleAttributes)
+        titleLabel.attributedText = attributedTitle
+    }
+    
+    private func updateCompletionButton(for task: TaskModel) {
         let imageName = task.isCompleted ? "checkmark.circle.fill" : "circle"
-
         completionButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
     
