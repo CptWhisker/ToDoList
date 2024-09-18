@@ -16,7 +16,7 @@ protocol TaskListPresenterProtocol: AnyObject {
     func filterCompletedTasks()
     func filterIncompletedTasks()
     func didFetchTasks(_ tasks: [TaskCoreData], counts: FilteredTasksCount)
-    func didUpdateTask(_ task: TaskModel)
+    func didUpdateTask(_ task: TaskModel, with counts: FilteredTasksCount)
     func didTapAddTaskButton()
     func didSelectTask(_ task: TaskModel)
 }
@@ -54,8 +54,9 @@ final class TaskListPresenter: TaskListPresenterProtocol {
         }
     }
     
-    func didUpdateTask(_ task: TaskModel) {
+    func didUpdateTask(_ task: TaskModel, with counts: FilteredTasksCount) {
         DispatchQueue.main.async { [weak viewController] in
+            viewController?.setFilterCounts(counts)
             viewController?.updateTask(task)
         }
     }

@@ -114,11 +114,15 @@ final class TaskCell: UICollectionViewCell {
     
     // MARK: - Configuration
     func configure(with task: TaskModel, delegate: TaskCellDelegate?) {
+        self.task = task
+        self.delegate = delegate
+        
         titleLabel.text = task.title
         descriptionLabel.text = task.description
         dateLabel.text = task.createdAt
         
         let imageName = task.isCompleted ? "checkmark.circle.fill" : "circle"
+
         completionButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
     

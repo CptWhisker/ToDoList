@@ -14,7 +14,7 @@ protocol TaskListViewControllerProtocol: AnyObject {
     func updateTask(_ task: TaskModel)
 }
 
-class TaskListViewController: UIViewController, TaskListViewControllerProtocol {
+class TaskListViewController: UIViewController {
 
     // MARK: - Properties
     var presenter: TaskListPresenterProtocol?
@@ -131,30 +131,8 @@ class TaskListViewController: UIViewController, TaskListViewControllerProtocol {
         configureUI()
     }
     
-    // MARK: - Public Methods
-    func showTasks(_ tasks: [TaskModel]) {
-        self.tasks = tasks
-        tasksCollectionView.reloadData()
-    }
-    
-    func setFilterCounts(_ counts: FilteredTasksCount) {
-        allTasksButton.setTitle("All   \(counts.all)", for: .normal)
-        incompletedTasksButton.setTitle("Open   \(counts.incompleted)", for: .normal)
-        completedTasksButton.setTitle("Closed   \(counts.completed)", for: .normal)
-    }
-    
-    func updateTask(_ task: TaskModel) {
-        guard let indexPath = taskIndexPath(for: task) else { return }
-        tasksCollectionView.reloadItems(at: [indexPath])
-    }
-
-    private func taskIndexPath(for task: TaskModel) -> IndexPath? {
-        guard let index = tasks.firstIndex(where: { $0.id == task.id }) else { return nil }
-        return IndexPath(item: index, section: 0)
-    }
-
+    // MARK: - UI Configuration
     private func configureUI() {
-//        view.backgroundColor = .white.withAlphaComponent(0.95)
         view.backgroundColor = .todoBackground
         
         view.addSubview(labelsStackView)
@@ -210,6 +188,7 @@ extension TaskListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskCell", for: indexPath) as! TaskCell
+        
         cell.configure(with: tasks[indexPath.item], delegate: presenter as? TaskCellDelegate)
         
         return cell
@@ -236,7 +215,28 @@ extension TaskListViewController: UICollectionViewDelegate {
                 
         presenter?.didSelectTask(selectedTask)
     }
-    
-    
 }
 
+extension TaskListViewController: TaskListViewControllerProtocol {
+    func showTasks(_ tasks: [TaskModel]) {
+        self.tasks = tasks
+        tasksCollectionView.reloadData()
+    }
+    
+    func setFilterCounts(_ counts: FilteredTasksCount) {
+        allTasksButton.setTitle("All   \(counts.all)", for: .normal)
+        incompletedTasksButton.setTitle("Open   \(counts.incompleted)", for: .normal)
+        completedTasksButton.setTitle("Closed   \(counts.completed)", for: .normal)
+    }
+    
+    func updateTask(_ task: TaskModel) {
+        guard let indexPath = taskIndexPath(for: task) else { return }
+        tasksCollectionView.reloadItems(at: [indexPath])
+    }
+
+    private func taskIndexPath(for task: TaskModel) -> IndexPath? {
+        guard let index = tasks.firstIndex(where: { $0.id == task.id }) else { return nil }
+        tasks[index] = task
+        return IndexPath(item: index, section: 0)
+    }
+}

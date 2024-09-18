@@ -84,6 +84,8 @@ final class TaskListInteractor: TaskListInteractorProtocol {
     
     func updateTask(_ task: TaskModel) {
         coreDataService.updateTask(task)
-        presenter?.didUpdateTask(task)
+        let counts = getFilteredTasksCounts()
+
+        presenter?.didUpdateTask(task, with: counts)
     }
 }

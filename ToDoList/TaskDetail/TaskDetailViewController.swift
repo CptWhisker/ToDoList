@@ -110,8 +110,6 @@ final class TaskDetailViewController: UIViewController {
 
         view.addSubview(categoriesTableView)
         view.addSubview(descriptionTextField)
-//        view.addSubview(doneButton)
-//        view.addSubview(deleteButton)
         view.addSubview(buttonStackView)
         
         NSLayoutConstraint.activate([
@@ -125,11 +123,6 @@ final class TaskDetailViewController: UIViewController {
             descriptionTextField.trailingAnchor.constraint(equalTo: categoriesTableView.trailingAnchor),
             descriptionTextField.heightAnchor.constraint(equalTo: doneButton.heightAnchor),
             
-//            doneButton.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 16),
-//            doneButton.centerXAnchor.constraint(equalTo: descriptionTextField.centerXAnchor),
-//            doneButton.widthAnchor.constraint(equalToConstant: view.frame.width / 2),
-//            doneButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
-
             buttonStackView.topAnchor.constraint(equalTo: descriptionTextField.bottomAnchor, constant: 16),
             buttonStackView.leadingAnchor.constraint(equalTo: descriptionTextField.leadingAnchor),
             buttonStackView.trailingAnchor.constraint(equalTo: descriptionTextField.trailingAnchor),
